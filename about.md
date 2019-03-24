@@ -4,10 +4,11 @@ title: About Me
 ---
 
 <p class="message">
-  Hey there! This page is included as an example. Feel free to customize it for your own use upon downloading. Carry on!
+  Hey there! Welcome to my Personal Website! I am a Software Engineer who want to change the world!
 </p>
 
-In the novel, *The Strange Case of Dr. Jeykll and Mr. Hyde*, Mr. Poole is Dr. Jekyll's virtuous and loyal butler. Similarly, Poole is an upstanding and effective butler that helps you build Jekyll themes. It's made by [@mdo](https://twitter.com/mdo).
+In this place, I am gonna share my knowledge and experience and record anything i learning. After All Teaching is learning right ? 
+If you find anything wrong in my tech note! Please feel free to contact me. I will apprecite that. Thx!!!
 
 There are currently two themes built on Poole:
 
@@ -16,7 +17,10 @@ There are currently two themes built on Poole:
 
 Learn more and contribute on [GitHub](https://github.com/poole).
 
-## Setup
+## Skill
+
+* Familiar with  C / JAVA / Python
+* 
 
 Some fun facts about the setup of this project include:
 
