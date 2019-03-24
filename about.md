@@ -4,7 +4,7 @@ title: About Me
 ---
 
 <p class="message">
-  Hey there! Welcome to my Personal Website!</br>
+  Hey there! Welcome to my Personal Website!<br>
  I am a Software Engineer who want to change the world!
 </p>
 
