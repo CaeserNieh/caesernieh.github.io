@@ -4,7 +4,8 @@ title: About Me
 ---
 
 <p class="message">
-  Hey there! Welcome to my Personal Website! I am a Software Engineer who want to change the world!
+  Hey there! Welcome to my Personal Website!</br>
+ I am a Software Engineer who want to change the world!
 </p>
 
 In this place, I am gonna share my knowledge and experience and record anything i learning. After All Teaching is learning right ? 
