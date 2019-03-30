@@ -4,11 +4,11 @@ title : LeetCode AddTwoNumbers
 ---
 
 ## Example
-<div class="message">
+<p class="message">
 Input: (2 -> 4 -> 3) + (5 -> 6 -> 4) <br>
 Output: 7 -> 0 -> 8 <br>
 Explanation: 342 + 465 = 807.
-</div>
+</p>
 
 ## Solution
 Runtime: 68 ms, faster than 84.09% of Python online submissions for Add Two Numbers.
