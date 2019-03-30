@@ -9,7 +9,7 @@ title:               Write-Up
 tagline:             '好記性不如爛筆記'
 description:         'My Personal Tech Blog'
 url:                 http://lanyon.getpoole.com
-baseurl:             ''
+baseurl:             'https://caesernieh.github.io'
 paginate:            5
 
 # About/contact
