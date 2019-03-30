@@ -1,6 +1,6 @@
 ---
 layout : post
-title: LeetCode AddTwoNumbers
+title : LeetCode AddTwoNumbers
 ---
 
 ## Example
