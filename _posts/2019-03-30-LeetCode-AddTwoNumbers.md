@@ -5,14 +5,17 @@ title : LeetCode AddTwoNumbers
 
 ## Example
 <div class="message">
-Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
-Output: 7 -> 0 -> 8
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4) <br>
+Output: 7 -> 0 -> 8 <br>
 Explanation: 342 + 465 = 807.
 </div>
 
 ## Solution
+Runtime: 68 ms, faster than 84.09% of Python online submissions for Add Two Numbers.
+Memory Usage: 11.8 MB, less than 5.16% Python online submissions for Add Two Numbers.
 
-
+純粹把ListNode裡面的值用string記錄起來再一次轉換成Integer
+在慢慢把他切成一個一個數字，在塞回ListNode裡
 
 ## Code
 {% highlight python %}
