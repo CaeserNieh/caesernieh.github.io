@@ -1,5 +1,9 @@
-Perception Learning Algorithm (PLA) 感知機
-===
+---
+layout: post
+title: Perception Learning Algorithm (PLA) 感知機
+categories: [Machine Learning, Deep Learning]
+tag: ML
+---
 
 ### PLA 演算法應該可以說是機器學習的class 101
 
