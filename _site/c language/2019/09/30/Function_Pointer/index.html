@@ -11,7 +11,7 @@
 
   <title>
     
-      About Me &middot; Write-Up
+      Funtion Pointer &middot; Write-Up
     
   </title>
 
@@ -65,7 +65,7 @@
     
       
         
-          <a class="sidebar-nav-item active" href="/about/">About Me</a>
+          <a class="sidebar-nav-item" href="/about/">About Me</a>
         
       
     
@@ -103,55 +103,104 @@
 
       <div class="container content">
         <div class="page">
-  <h1 class="page-title">About Me</h1>
-  <p class="message">
-  Hey there! Welcome to my Personal Website!<br />
- I am a Software Engineer who want to change the world!
-</p>
+  <h1 class="page-title">Funtion Pointer</h1>
+  <h1 id="function-pointer">Function Pointer</h1>
 
-<p>In this place, I am gonna share my knowledge and experience and record anything i learning. After All Teaching is learning right ? 
-If you find anything wrong in my tech note! Please feel free to contact me. I will apprecite that. Thx!!!</p>
+<p>顧名思義，一個指向Function的Pointer。</p>
 
-<p>Blog內容著重於
-<br /></p>
-<ul>
-  <li>經驗分享</li>
-  <li>所見所聞</li>
-  <li>技術文章</li>
-  <li>程式撰寫</li>
-</ul>
+<p>用法1 :</p>
+<pre><code class="language-C">#include &lt;stdio.h&gt;
 
-<h2 id="skill">Skill</h2>
+int add(int a, int b){
+    return a+b;
+}
 
-<ul>
-  <li>Familiar with  C / JAVA / Python</li>
-  <li>learned Android / PHP / Javascript</li>
-  <li>Modify Hadoop - Hue / Ckan</li>
-  <li>Studing Linux Kernel / OpenStack</li>
-</ul>
+int main()
+{
+    // a pointer(func_ptr) point to function with parameter m,n
+    int (*func_ptr)(int m, int n);
+    func_ptr = add;
+    printf("func_ptr(3,5) : %d\n",func_ptr(3,5));
+    return 0;
+}
 
-<h2 id="tools">Tools</h2>
+</code></pre>
 
-<ul>
-  <li>vim</li>
-  <li>Framework : Django,Pylon</li>
-  <li>Web automation : Selenium</li>
-  <li>D3.js、sheet.js</li>
-  <li>Google Map API</li>
-  <li>OpenSource Ckan</li>
-  <li>Git / SVN</li>
-</ul>
+<p>用法2 typedef :</p>
+<pre><code class="language-C">#include &lt;stdio.h&gt;
 
-<h2 id="experience">Experience</h2>
-<ul>
-  <li>幫助學校lab,撰寫網站自動化測試工具(Python + Selenium)</li>
-  <li>參加AIS3(暑期資安人才培育計劃)</li>
-  <li>參加中研院暑期實習,參與熱浪計劃(HTML + D3.js + PHP)</li>
-  <li>NCHC Summer Intern , 參與 Hadoop-Hue 相關計劃</li>
-  <li>NCHC Student co-worker , 參與政府開方資料平台計劃 IPGOD (OpenSource : Ckan)</li>
-</ul>
+typedef int(*Func_ptr)(int a, int b);
 
-<p>Thanks for reading!</p>
+int add(int a, int b){
+    return a+b;
+}
+
+int main()
+{
+    Func_ptr f_ptr = add;
+    printf("func_ptr(3,5) : %d\n",f_ptr(3,5));
+    return 0;
+}
+
+</code></pre>
+
+<blockquote>
+  <p>(* (void( * )( ) )0 )();</p>
+</blockquote>
+
+<p>Jserv的不能不知道的C語言裡提到的，該如何解讀呢? 
+根據Jserv的YT教學，上面的程式碼可變成</p>
+<blockquote>
+  <p>typedef void(* funct_ptr)();
+(* (funct_ptr) 0)()</p>
+</blockquote>
+
+<p>先define一個function pointer(funct_ptr) point to funcion return void
+再透過這個function pointer(funct_ptr)去指 address 0x0。在value of pointer 去執行這項Function
+以這個例子來說，會core_dump。
+以下範例佐證。</p>
+<pre><code class="language-C">#include &lt;stdio.h&gt;
+
+typedef int(*OP)();
+
+typedef int(*func)();
+
+int aa(){
+    return 0xAA;
+}
+
+int main(){
+    OP f_ptr = aa;
+    
+    //  EX : address aa : 0x40052d
+    printf("address of func aa : %p\n",aa);
+    
+    // *f_ptr = f_ptr = 0x40052d
+    printf("value of func_ptr f_ptr : %p\n",f_ptr);
+    
+    // return 0xAA 
+    printf("(*f_ptr) () : %d\n", (*f_ptr)());
+    
+    // return 0xAA 
+    printf("(* ((func)0x40052d) )() : %d\n", (* ((func)0x40052d) )());
+    
+    
+    return 0
+}
+    
+</code></pre>
+
+<p>以上範例使用function pointer func 指向 aa()的address並且執行，因此之後對 func dereference，同意於直接執行aa()。</p>
+
+<p>回到正題，上面用funct_ptr指向 address 0x0，並且執行。因為0x0不是一個能隨意執行存取的記憶體位置，因此會core dump</p>
+
+<hr />
+
+<blockquote>
+  <p>http://ccckmit.wikidot.com/cp:function
+http://computer-learning-note.blogspot.com/2013/08/pointer-to-functionaka-function-pointer.html
+https://blog.xuite.net/jesonchung/scienceview/93554949-typedef+%E4%B8%8D%E5%90%8C%E7%9A%84%E7%94%A8%E6%B3%95</p>
+</blockquote>
 
 </div>
 

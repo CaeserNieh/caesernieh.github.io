@@ -4,7 +4,7 @@
  <title>Write-Up</title>
  <link href="http://lanyon.getpoole.com/atom.xml" rel="self"/>
  <link href="http://lanyon.getpoole.com/"/>
- <updated>2020-04-11T21:15:45+08:00</updated>
+ <updated>2020-04-11T21:58:21+08:00</updated>
  <id>http://lanyon.getpoole.com</id>
  <author>
    <name>Caeser Nieh</name>
@@ -13,10 +13,10 @@
 
  
  <entry>
-   <title>Array_pointer</title>
-   <link href="http://lanyon.getpoole.com/2019/10/12/Array_Pointer/"/>
+   <title>Pointer & Array</title>
+   <link href="http://lanyon.getpoole.com/c%20language/2019/10/12/Array_Pointer/"/>
    <updated>2019-10-12T00:00:00+08:00</updated>
-   <id>http://lanyon.getpoole.com/2019/10/12/Array_Pointer</id>
+   <id>http://lanyon.getpoole.com/c%20language/2019/10/12/Array_Pointer</id>
    <content type="html">&lt;h1 id=&quot;pointer--array&quot;&gt;Pointer &amp;amp; Array&lt;/h1&gt;
 
 &lt;p&gt;嘗試了幾個範例，做點紀錄。&lt;/p&gt;
@@ -139,10 +139,10 @@ int main()
  </entry>
  
  <entry>
-   <title>Function_pointer</title>
-   <link href="http://lanyon.getpoole.com/2019/09/30/Function_Pointer/"/>
+   <title>Funtion Pointer</title>
+   <link href="http://lanyon.getpoole.com/c%20language/2019/09/30/Function_Pointer/"/>
    <updated>2019-09-30T00:00:00+08:00</updated>
-   <id>http://lanyon.getpoole.com/2019/09/30/Function_Pointer</id>
+   <id>http://lanyon.getpoole.com/c%20language/2019/09/30/Function_Pointer</id>
    <content type="html">&lt;h1 id=&quot;function-pointer&quot;&gt;Function Pointer&lt;/h1&gt;
 
 &lt;p&gt;顧名思義，一個指向Function的Pointer。&lt;/p&gt;
@@ -340,9 +340,9 @@ git push origin branch_name
  
  <entry>
    <title>LeetCode AddTwoNumbers</title>
-   <link href="http://lanyon.getpoole.com/2019/03/30/LeetCode-AddTwoNumbers/"/>
+   <link href="http://lanyon.getpoole.com/leetcode/algorithm/2019/03/30/LeetCode-AddTwoNumbers/"/>
    <updated>2019-03-30T00:00:00+08:00</updated>
-   <id>http://lanyon.getpoole.com/2019/03/30/LeetCode-AddTwoNumbers</id>
+   <id>http://lanyon.getpoole.com/leetcode/algorithm/2019/03/30/LeetCode-AddTwoNumbers</id>
    <content type="html">&lt;h2 id=&quot;example&quot;&gt;Example&lt;/h2&gt;
 &lt;p class=&quot;message&quot;&gt;
 Input: (2 -&amp;gt; 4 -&amp;gt; 3) + (5 -&amp;gt; 6 -&amp;gt; 4) &lt;br /&gt;
