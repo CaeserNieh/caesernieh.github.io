@@ -11,7 +11,7 @@
 
   <title>
     
-      Introducing Lanyon &middot; Write-Up
+      Perception Learning Algorithm (PLA) 感知機 &middot; Write-Up
     
   </title>
 
@@ -97,45 +97,49 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Introducing Lanyon</h1>
-  <span class="post-date">02 Jan 2014</span>
-  <p>Lanyon is an unassuming <a href="http://jekyllrb.com">Jekyll</a> theme that places content first by tucking away navigation in a hidden drawer. It’s based on <a href="http://getpoole.com">Poole</a>, the Jekyll butler.</p>
+  <h1 class="post-title">Perception Learning Algorithm (PLA) 感知機</h1>
+  <span class="post-date">02 Jun 2019</span>
+  <h3 id="pla-演算法應該可以說是機器學習的class-101">PLA 演算法應該可以說是機器學習的class 101</h3>
 
-<h3 id="built-on-poole">Built on Poole</h3>
+<p>網路上應該已經很多人都有做過類似的解說以及實作。
+不過這是我開始學習寫Blog的第一步，請大家手下留情XD
+這篇文主要是想提供大家可以簡單看出在3D空間中，PLA是怎麼做到分群的。</p>
 
-<p>Poole is the Jekyll Butler, serving as an upstanding and effective foundation for Jekyll themes by <a href="https://twitter.com/mdo">@mdo</a>. Poole, and every theme built on it (like Lanyon here) includes the following:</p>
+<p>就我的認知，PLA是一個分群演算法。
+根據過去的資料集，訓練出一套判斷的標準(參數)，針對尚未分群的資料加以歸類。
+此演算法只能針對線性可分割的資料做分類。</p>
 
-<ul>
-  <li>Complete Jekyll setup included (layouts, config, <a href="/404">404</a>, <a href="/atom.xml">RSS feed</a>, posts, and <a href="/about">example page</a>)</li>
-  <li>Mobile friendly design and development</li>
-  <li>Easily scalable text and component sizing with <code class="highlighter-rouge">rem</code> units in the CSS</li>
-  <li>Support for a wide gamut of HTML elements</li>
-  <li>Related posts (time-based, because Jekyll) below each post</li>
-  <li>Syntax highlighting, courtesy Pygments (the Python-based code snippet highlighter)</li>
-</ul>
+<h3 id="什麼是線性可分割的資料呢-">什麼是線性可分割的資料呢 ?</h3>
 
-<h3 id="lanyon-features">Lanyon features</h3>
+<p>2D平面上，能畫出一條線將資料分成2部分。
+3D空間中，能畫出一個面將資料分開。
+這部分可以透過下方提供的Source code 來看的出來。</p>
 
-<p>In addition to the features of Poole, Lanyon adds the following:</p>
+<h3 id="原理">原理</h3>
+<p>神經心理學家Hebb認為學習現象是因為神經元間的突觸產生變化。
+感知機是由可調整的鍵結值(weights)以及閥值(threshold)所構成的單一類神經元
+<img src="https://i.imgur.com/CpNnPhd.png" alt="" /></p>
 
-<ul>
-  <li>Toggleable sliding sidebar (built with only CSS) via <strong>☰</strong> link in top corner</li>
-  <li>Sidebar includes support for textual modules and a dynamically generated navigation with active link support</li>
-  <li>Two orientations for content and sidebar, default (left sidebar) and <a href="https://github.com/poole/lanyon#reverse-layout">reverse</a> (right sidebar), available via <code class="highlighter-rouge">&lt;body&gt;</code> classes</li>
-  <li><a href="https://github.com/poole/lanyon#themes">Eight optional color schemes</a>, available via <code class="highlighter-rouge">&lt;body&gt;</code> classes</li>
-</ul>
+<p>這可以連結到高中生物課程所說的，要產生一個神經衝動是根據鈉鉀離子的濃度去決定的。
+在這裡是透過 “資料”與”鏈結值”丟進Activation function去判斷是否超過threshold去判斷是不是同種資料
+<img src="https://cdn-images-1.medium.com/max/800/1*MofmXIxbv5AOIXHQp_hSOw.png" alt="" /></p>
 
-<p><a href="https://github.com/poole/lanyon#readme">Head to the readme</a> to learn more.</p>
+<p>Activation function 是可以自由決定的，在本範例單純去判斷算出來的值是不是有大於0</p>
 
-<h3 id="browser-support">Browser support</h3>
+<p>整個PLA的重點在於 “如何修正鍵結值”
+“鍵結值的向量” 與 “資料點的向量” 做內積。
+設定”分類1”是內積大於0，”分類2”是內積小於0。
+如果分類錯誤則透過以下公式來修正鍵結值。
+<img src="http://static.obeobe.com/image/blog-image/machine-learning-foundations-2-6.png" alt="" />
+修正鍵結值的過程中也可以設定”學習率”來調整修正的快慢。</p>
 
-<p>Lanyon is by preference a forward-thinking project. In addition to the latest versions of Chrome, Safari (mobile and desktop), and Firefox, it is only compatible with Internet Explorer 9 and above.</p>
+<h2 id="ref">Ref</h2>
+<blockquote>
+  <p>https://medium.com/jameslearningnote/%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90-%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-%E7%AC%AC3-2%E8%AC%9B-%E7%B7%9A%E6%80%A7%E5%88%86%E9%A1%9E-%E6%84%9F%E7%9F%A5%E5%99%A8-perceptron-%E4%BB%8B%E7%B4%B9-84d8b809f866
+https://blog.fukuball.com/lin-xuan-tian-jiao-shou-machine-learning-foundations-di-er-jiang-xue-xi-bi-ji/
+Coursera 田神</p>
+</blockquote>
 
-<h3 id="download">Download</h3>
-
-<p>Lanyon is developed on and hosted with GitHub. Head to the <a href="https://github.com/poole/lanyon">GitHub repository</a> for downloads, bug reports, and features requests.</p>
-
-<p>Thanks!</p>
 
 </div>
 
@@ -163,9 +167,9 @@
     
       <li>
         <h3>
-          <a href="/machine%20learning/deep%20learning/2019/06/02/Perception-Learning-Algorithm/">
-            Perception Learning Algorithm (PLA) 感知機
-            <small>02 Jun 2019</small>
+          <a href="/2019/04/21/Git%E5%82%99%E5%BF%98%E9%8C%84/">
+            Git備忘錄
+            <small>21 Apr 2019</small>
           </a>
         </h3>
       </li>

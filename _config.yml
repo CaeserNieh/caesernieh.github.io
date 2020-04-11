@@ -9,14 +9,14 @@ title:               Write-Up
 tagline:             '好記性不如爛筆記'
 description:         'My Personal Tech Blog'
 url:                 http://lanyon.getpoole.com
-baseurl:             'https://caesernieh.github.io'
+baseurl:             
 paginate:            5
 
 # About/contact
 author:
-  name:              Mark Otto
-  url:               https://twitter.com/mdo
-  email:             markdotto@gmail.com
+  name:              Caeser Nieh
+  url:               N/A
+  email:             nieh821130@gmail.com
 
 # Custom vars
 version:             1.0.0

@@ -1,23 +1,12 @@
+<h1 id="pointer--array">Pointer &amp; Array</h1>
 
----
-layout: page
-title: Pointer & Array
-categories: [C language]
-tags: [C language]
+<p>嘗試了幾個範例，做點紀錄。</p>
 
----
-
-
-# Pointer & Array
-
-嘗試了幾個範例，做點紀錄。
-
-一維陣列傳遞
-```C
-// 一維陣列傳遞
+<p>一維陣列傳遞</p>
+<pre><code class="language-C">// 一維陣列傳遞
 void display_array(int arr[], int size)
 {
-    for(int i = 0; i < size; i++)
+    for(int i = 0; i &lt; size; i++)
     {
         printf("%d \n",arr[i]);
     }
@@ -25,7 +14,7 @@ void display_array(int arr[], int size)
 
 void display_array(int *arr, int size)
 {
-    for(int i = 0; i < size; i++)
+    for(int i = 0; i &lt; size; i++)
     {
         printf("%d \n", *(arr+i) );
     }
@@ -38,16 +27,15 @@ int main()
     
 }
 
-```
+</code></pre>
 
-二維陣列傳遞
-```C
-
+<p>二維陣列傳遞</p>
+<pre><code class="language-C">
 void display_array(int (*arr)[5], int size)
 {
-    for(int i = 0; i < 2; i++)
+    for(int i = 0; i &lt; 2; i++)
     {
-        for(int j = 0;j < size;j++)
+        for(int j = 0;j &lt; size;j++)
         {
             printf("%d \n", arr[i][j]);
         }
@@ -57,9 +45,9 @@ void display_array(int (*arr)[5], int size)
 
 void display_matrix(int arr[][5], int size)
 {
-    for(int i = 0; i < 2; i++)
+    for(int i = 0; i &lt; 2; i++)
     {
-        for(int j = 0;j < size;j++)
+        for(int j = 0;j &lt; size;j++)
         {
             printf("%d \n", arr[i][j]);
         }
@@ -92,17 +80,14 @@ int main()
     */
 }
 
-```
+</code></pre>
 
-
-
-```C
-
+<pre><code class="language-C">
 void display_matrix(int **arr,int size)
 {
-    for(int i = 0; i < 2; i++)
+    for(int i = 0; i &lt; 2; i++)
     {
-        for(int j = 0;j < size;j++)
+        for(int j = 0;j &lt; size;j++)
         {
             printf("%d \n", arr[i][j]);
         }
@@ -130,4 +115,4 @@ int main()
 
 }
 
-```
+</code></pre>

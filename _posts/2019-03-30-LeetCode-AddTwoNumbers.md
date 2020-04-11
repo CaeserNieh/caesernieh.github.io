@@ -1,6 +1,9 @@
 ---
 layout : post
 title : LeetCode AddTwoNumbers
+categories: [LeetCode, Algorithm]
+tags: [LeetCode, Algorithm]
+
 ---
 
 ## Example

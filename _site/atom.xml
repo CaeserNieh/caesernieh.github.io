@@ -1,16 +1,412 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
- <title>Lanyon</title>
+ <title>Write-Up</title>
  <link href="http://lanyon.getpoole.com/atom.xml" rel="self"/>
  <link href="http://lanyon.getpoole.com/"/>
- <updated>2019-03-24T16:09:33+08:00</updated>
+ <updated>2020-04-11T21:15:45+08:00</updated>
  <id>http://lanyon.getpoole.com</id>
  <author>
-   <name>Mark Otto</name>
-   <email>markdotto@gmail.com</email>
+   <name>Caeser Nieh</name>
+   <email>nieh821130@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Array_pointer</title>
+   <link href="http://lanyon.getpoole.com/2019/10/12/Array_Pointer/"/>
+   <updated>2019-10-12T00:00:00+08:00</updated>
+   <id>http://lanyon.getpoole.com/2019/10/12/Array_Pointer</id>
+   <content type="html">&lt;h1 id=&quot;pointer--array&quot;&gt;Pointer &amp;amp; Array&lt;/h1&gt;
+
+&lt;p&gt;嘗試了幾個範例，做點紀錄。&lt;/p&gt;
+
+&lt;p&gt;一維陣列傳遞&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-C&quot;&gt;// 一維陣列傳遞
+void display_array(int arr[], int size)
+{
+    for(int i = 0; i &amp;lt; size; i++)
+    {
+        printf(&quot;%d \n&quot;,arr[i]);
+    }
+}
+
+void display_array(int *arr, int size)
+{
+    for(int i = 0; i &amp;lt; size; i++)
+    {
+        printf(&quot;%d \n&quot;, *(arr+i) );
+    }
+}
+
+int main()
+{
+    int arr[5] = {1,2,3,4,5};
+    display_array(arr,5);
+    
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;二維陣列傳遞&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-C&quot;&gt;
+void display_array(int (*arr)[5], int size)
+{
+    for(int i = 0; i &amp;lt; 2; i++)
+    {
+        for(int j = 0;j &amp;lt; size;j++)
+        {
+            printf(&quot;%d \n&quot;, arr[i][j]);
+        }
+        
+    }
+}
+
+void display_matrix(int arr[][5], int size)
+{
+    for(int i = 0; i &amp;lt; 2; i++)
+    {
+        for(int j = 0;j &amp;lt; size;j++)
+        {
+            printf(&quot;%d \n&quot;, arr[i][j]);
+        }
+        
+    }
+}
+
+int main()
+{
+    int matrix[2][5] = 
+    {
+        {1,2,3,4,5},
+        {6,7,8,9,10}
+    };
+    display_matrix(matrix,5);
+    
+    // 另外一種寫法
+    int (*p_matrix)[5] = matrix;
+    /* 宣告一個指向陣列的pointer p_matrix。
+     * p_matrix定義為一個指向二維陣列的pointer，每列有5個元素
+     * 所以 p_matrix[0] 指到記憶體位置為 matrix[0][0]的位置
+     * p_matrix[1] 指到記憶體位置為 matrix[1][0]的位置
+    */
+    
+    display_matrix(p_matrix,5);
+    
+    /* 如果是宣告成 int *p_matrix[5];
+     * 則代表 一個 p_matrix的陣列，長度為5，陣列裡面裝的是 指向 integer的pointer
+     *
+    */
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-C&quot;&gt;
+void display_matrix(int **arr,int size)
+{
+    for(int i = 0; i &amp;lt; 2; i++)
+    {
+        for(int j = 0;j &amp;lt; size;j++)
+        {
+            printf(&quot;%d \n&quot;, arr[i][j]);
+        }
+        
+    }
+}
+
+int main()
+{
+    int (*(matrix_t[])) = 
+    {
+       (int[]) {1,2,3,4,5},
+       (int[]) {6,7,8,9,10}
+    };
+    
+    
+    display_matrix(matrix_t,5);
+    
+    // 另外一種寫法
+    /* 宣告一個陣列 matrix_t，裝指向integer的 pointer
+     * matrix_t[0] : 指向 陣列 {1,2,3,4,5}的pointer
+     * matrix_t[1] : 指向 陣列 {6,7,8,9,10}的pointer     
+     * 所以傳給funtion是 pointer 的 pointer
+    */
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Function_pointer</title>
+   <link href="http://lanyon.getpoole.com/2019/09/30/Function_Pointer/"/>
+   <updated>2019-09-30T00:00:00+08:00</updated>
+   <id>http://lanyon.getpoole.com/2019/09/30/Function_Pointer</id>
+   <content type="html">&lt;h1 id=&quot;function-pointer&quot;&gt;Function Pointer&lt;/h1&gt;
+
+&lt;p&gt;顧名思義，一個指向Function的Pointer。&lt;/p&gt;
+
+&lt;p&gt;用法1 :&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-C&quot;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int add(int a, int b){
+    return a+b;
+}
+
+int main()
+{
+    // a pointer(func_ptr) point to function with parameter m,n
+    int (*func_ptr)(int m, int n);
+    func_ptr = add;
+    printf(&quot;func_ptr(3,5) : %d\n&quot;,func_ptr(3,5));
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;用法2 typedef :&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-C&quot;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+typedef int(*Func_ptr)(int a, int b);
+
+int add(int a, int b){
+    return a+b;
+}
+
+int main()
+{
+    Func_ptr f_ptr = add;
+    printf(&quot;func_ptr(3,5) : %d\n&quot;,f_ptr(3,5));
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;(* (void( * )( ) )0 )();&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Jserv的不能不知道的C語言裡提到的，該如何解讀呢? 
+根據Jserv的YT教學，上面的程式碼可變成&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;typedef void(* funct_ptr)();
+(* (funct_ptr) 0)()&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;先define一個function pointer(funct_ptr) point to funcion return void
+再透過這個function pointer(funct_ptr)去指 address 0x0。在value of pointer 去執行這項Function
+以這個例子來說，會core_dump。
+以下範例佐證。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-C&quot;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+typedef int(*OP)();
+
+typedef int(*func)();
+
+int aa(){
+    return 0xAA;
+}
+
+int main(){
+    OP f_ptr = aa;
+    
+    //  EX : address aa : 0x40052d
+    printf(&quot;address of func aa : %p\n&quot;,aa);
+    
+    // *f_ptr = f_ptr = 0x40052d
+    printf(&quot;value of func_ptr f_ptr : %p\n&quot;,f_ptr);
+    
+    // return 0xAA 
+    printf(&quot;(*f_ptr) () : %d\n&quot;, (*f_ptr)());
+    
+    // return 0xAA 
+    printf(&quot;(* ((func)0x40052d) )() : %d\n&quot;, (* ((func)0x40052d) )());
+    
+    
+    return 0
+}
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上範例使用function pointer func 指向 aa()的address並且執行，因此之後對 func dereference，同意於直接執行aa()。&lt;/p&gt;
+
+&lt;p&gt;回到正題，上面用funct_ptr指向 address 0x0，並且執行。因為0x0不是一個能隨意執行存取的記憶體位置，因此會core dump&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;http://ccckmit.wikidot.com/cp:function
+http://computer-learning-note.blogspot.com/2013/08/pointer-to-functionaka-function-pointer.html
+https://blog.xuite.net/jesonchung/scienceview/93554949-typedef+%E4%B8%8D%E5%90%8C%E7%9A%84%E7%94%A8%E6%B3%95&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Perception Learning Algorithm (PLA) 感知機</title>
+   <link href="http://lanyon.getpoole.com/machine%20learning/deep%20learning/2019/06/02/Perception-Learning-Algorithm/"/>
+   <updated>2019-06-02T00:00:00+08:00</updated>
+   <id>http://lanyon.getpoole.com/machine%20learning/deep%20learning/2019/06/02/Perception-Learning-Algorithm</id>
+   <content type="html">&lt;h3 id=&quot;pla-演算法應該可以說是機器學習的class-101&quot;&gt;PLA 演算法應該可以說是機器學習的class 101&lt;/h3&gt;
+
+&lt;p&gt;網路上應該已經很多人都有做過類似的解說以及實作。
+不過這是我開始學習寫Blog的第一步，請大家手下留情XD
+這篇文主要是想提供大家可以簡單看出在3D空間中，PLA是怎麼做到分群的。&lt;/p&gt;
+
+&lt;p&gt;就我的認知，PLA是一個分群演算法。
+根據過去的資料集，訓練出一套判斷的標準(參數)，針對尚未分群的資料加以歸類。
+此演算法只能針對線性可分割的資料做分類。&lt;/p&gt;
+
+&lt;h3 id=&quot;什麼是線性可分割的資料呢-&quot;&gt;什麼是線性可分割的資料呢 ?&lt;/h3&gt;
+
+&lt;p&gt;2D平面上，能畫出一條線將資料分成2部分。
+3D空間中，能畫出一個面將資料分開。
+這部分可以透過下方提供的Source code 來看的出來。&lt;/p&gt;
+
+&lt;h3 id=&quot;原理&quot;&gt;原理&lt;/h3&gt;
+&lt;p&gt;神經心理學家Hebb認為學習現象是因為神經元間的突觸產生變化。
+感知機是由可調整的鍵結值(weights)以及閥值(threshold)所構成的單一類神經元
+&lt;img src=&quot;https://i.imgur.com/CpNnPhd.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;這可以連結到高中生物課程所說的，要產生一個神經衝動是根據鈉鉀離子的濃度去決定的。
+在這裡是透過 “資料”與”鏈結值”丟進Activation function去判斷是否超過threshold去判斷是不是同種資料
+&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*MofmXIxbv5AOIXHQp_hSOw.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Activation function 是可以自由決定的，在本範例單純去判斷算出來的值是不是有大於0&lt;/p&gt;
+
+&lt;p&gt;整個PLA的重點在於 “如何修正鍵結值”
+“鍵結值的向量” 與 “資料點的向量” 做內積。
+設定”分類1”是內積大於0，”分類2”是內積小於0。
+如果分類錯誤則透過以下公式來修正鍵結值。
+&lt;img src=&quot;http://static.obeobe.com/image/blog-image/machine-learning-foundations-2-6.png&quot; alt=&quot;&quot; /&gt;
+修正鍵結值的過程中也可以設定”學習率”來調整修正的快慢。&lt;/p&gt;
+
+&lt;h2 id=&quot;ref&quot;&gt;Ref&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;https://medium.com/jameslearningnote/%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90-%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-%E7%AC%AC3-2%E8%AC%9B-%E7%B7%9A%E6%80%A7%E5%88%86%E9%A1%9E-%E6%84%9F%E7%9F%A5%E5%99%A8-perceptron-%E4%BB%8B%E7%B4%B9-84d8b809f866
+https://blog.fukuball.com/lin-xuan-tian-jiao-shou-machine-learning-foundations-di-er-jiang-xue-xi-bi-ji/
+Coursera 田神&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Git備忘錄</title>
+   <link href="http://lanyon.getpoole.com/2019/04/21/Git%E5%82%99%E5%BF%98%E9%8C%84/"/>
+   <updated>2019-04-21T00:00:00+08:00</updated>
+   <id>http://lanyon.getpoole.com/2019/04/21/Git備忘錄</id>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;https://git-scm.com/book/zh-tw/v1/Git-%E5%88%86%E6%94%AF-%E5%88%A9%E7%94%A8%E5%88%86%E6%94%AF%E9%80%B2%E8%A1%8C%E9%96%8B%E7%99%BC%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B&quot;&gt;Git-分支-利用分支進行開發的工作流程&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;branch&quot;&gt;branch&lt;/h1&gt;
+&lt;p&gt;可以先在repo上面開branch
+當你clone下來以後，要在本機端再開一個相同名稱的branch ?
+切到該branch底下 就可以 git push origin branchName 就可以推到該branch底下&lt;/p&gt;
+
+&lt;p&gt;可以不用先開branch 在repo上
+可以直接先切一條branch出來
+在底下開發 然後commit
+在 git push origin branchName&lt;br /&gt;
+Github repo底下就出現了你剛剛推的branch&lt;/p&gt;
+
+&lt;p&gt;delete Github repo branch
+git push origin –delete [branchname]&lt;/p&gt;
+
+&lt;h1 id=&quot;merge&quot;&gt;merge&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/ZKtqUOZ.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果要merge到master上
+先切到master上，git merge branchName
+這樣你master底下就會出現 被merge 那條branch的東西
+如果你要推上github repo，再 git push origin master就好了&lt;/p&gt;
+
+&lt;h1 id=&quot;delete-file-in-github-repo&quot;&gt;Delete file in Github repo&lt;/h1&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git rm file1.txt
+git commit -m &quot;remove file1.txt&quot;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;And push to change remote repo&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git push origin branch_name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;But if you wanto to remove the file only from the Git repo and not remove it from fileSystem use&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git rm --cached file1.txt
+git commit -m &quot;remove file1.txt&quot;
+git push origin branch_name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>LeetCode AddTwoNumbers</title>
+   <link href="http://lanyon.getpoole.com/2019/03/30/LeetCode-AddTwoNumbers/"/>
+   <updated>2019-03-30T00:00:00+08:00</updated>
+   <id>http://lanyon.getpoole.com/2019/03/30/LeetCode-AddTwoNumbers</id>
+   <content type="html">&lt;h2 id=&quot;example&quot;&gt;Example&lt;/h2&gt;
+&lt;p class=&quot;message&quot;&gt;
+Input: (2 -&amp;gt; 4 -&amp;gt; 3) + (5 -&amp;gt; 6 -&amp;gt; 4) &lt;br /&gt;
+Output: 7 -&amp;gt; 0 -&amp;gt; 8 &lt;br /&gt;
+Explanation: 342 + 465 = 807.
+&lt;/p&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
+&lt;p&gt;Runtime: 68 ms, faster than 84.09% of Python online submissions for Add Two Numbers.
+Memory Usage: 11.8 MB, less than 5.16% Python online submissions for Add Two Numbers.&lt;/p&gt;
+
+&lt;p&gt;純粹把ListNode裡面的值用string記錄起來再一次轉換成Integer
+在慢慢把他切成一個一個數字，在塞回ListNode裡&lt;/p&gt;
+
+&lt;h2 id=&quot;code&quot;&gt;Code&lt;/h2&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+		&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+		&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addTwoNumbers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;l1_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;&#39;&lt;/span&gt; 
+		&lt;span class=&quot;n&quot;&gt;l2_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;&#39;&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+				&lt;span class=&quot;n&quot;&gt;l1_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+				&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; 
+				&lt;span class=&quot;n&quot;&gt;l1_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+				&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;l1_num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[::&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+		&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+				&lt;span class=&quot;n&quot;&gt;l2_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+				&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+				&lt;span class=&quot;n&quot;&gt;l2_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+				&lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;l2_num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l2_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[::&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1_num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
+
+		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Testing</title>
+   <link href="http://lanyon.getpoole.com/2019/03/24/Testing/"/>
+   <updated>2019-03-24T00:00:00+08:00</updated>
+   <id>http://lanyon.getpoole.com/2019/03/24/Testing</id>
+   <content type="html">&lt;h1 id=&quot;this-is-testing&quot;&gt;This is testing&lt;/h1&gt;
+
+&lt;p&gt;this is content&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Introducing Lanyon</title>

@@ -1,3 +1,12 @@
+---
+layout: page
+title: Funtion Pointer
+categories: [C language]
+tags: [C language]
+
+---
+
+
 # Function Pointer
 
 
